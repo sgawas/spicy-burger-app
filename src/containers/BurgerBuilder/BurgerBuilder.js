@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
     salad: 1.2,
@@ -24,7 +26,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
-        purchaseable: false
+        purchaseable: false,
+        showSummary: false
     }
 
     updatePurchaseable = (ingredients) => {
@@ -67,6 +70,14 @@ class BurgerBuilder extends Component {
         this.updatePurchaseable(updatedIngredients);
     }
 
+    showSummaryHandler = ()=> {
+        this.setState({ showSummary: true });
+    }
+
+    cancelSummaryHandler = () => {
+        this.setState({ showSummary: false });
+    }
+
     render () {
         // takes ingredient and checks if their count is >0
         const disabledInfo = {...this.state.ingredients};
@@ -76,6 +87,9 @@ class BurgerBuilder extends Component {
         
         return (
             <Aux>
+                <Modal showOrderSummary={this.state.showSummary} cancelOrderSummary={this.cancelSummaryHandler}>
+                    <OrderSummary ingredients={this.state.ingredients}/>
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
                     addedIngredient={this.addIngredient} 
@@ -83,6 +97,7 @@ class BurgerBuilder extends Component {
                     disabled={disabledInfo}
                     price={this.state.totalPrice}
                     purchase={this.state.purchaseable}
+                    clickedOrderNow={this.showSummaryHandler}
                 />
             </Aux>
         );
