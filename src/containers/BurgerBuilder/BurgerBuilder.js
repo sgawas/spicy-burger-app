@@ -78,6 +78,10 @@ class BurgerBuilder extends Component {
         this.setState({ showSummary: false });
     }
 
+    continueSummaryHandler = () => {
+        alert('You can continue!');
+    }
+
     render () {
         // takes ingredient and checks if their count is >0
         const disabledInfo = {...this.state.ingredients};
@@ -88,7 +92,12 @@ class BurgerBuilder extends Component {
         return (
             <Aux>
                 <Modal showOrderSummary={this.state.showSummary} cancelOrderSummary={this.cancelSummaryHandler}>
-                    <OrderSummary ingredients={this.state.ingredients}/>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients} 
+                        cancelOrderSummary={this.cancelSummaryHandler}
+                        continueOrderSummary={this.continueSummaryHandler}
+                        orderTotal={this.state.totalPrice}
+                    />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
