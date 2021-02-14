@@ -4,24 +4,32 @@ import classes from './Input.css'
 
 const Input = (props) => {
     let inputElement = null;
-    function onHandler() {
-
-    }
+    
     switch(props.elementType){
         case 'input':
-            inputElement = <input onChange={this.onHandler}
+            inputElement = <input onChange={props.changed}
                                 className={classes.InputElement} 
                                 {...props.elementConfig} 
                                 value={props.value} />
             break;
         case 'textarea':
-            inputElement = <textarea onChange={this.onHandler} 
+            inputElement = <textarea onChange={props.changed} 
                                 className={classes.InputElement} 
                                 {...props.elementConfig} 
                                 value={props.value} />
             break;
+        case 'select':
+            inputElement = (
+                <select onChange={props.changed} 
+                    className={classes.InputElement} 
+                    value={props.value} >
+                    {props.elementConfig.options.map(option=> (
+                        <option key={option.value} value={option.value}>{option.displayValue}</option>
+                    ))}
+                </select>);
+            break;
         default:
-            inputElement = <input onChange={this.onHandler} className={classes.InputElement} 
+            inputElement = <input onChange={props.changed} className={classes.InputElement} 
                                 {...props.elementConfig} 
                                 value={props.value} />
             break;    

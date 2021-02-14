@@ -48,19 +48,19 @@ class ContactData extends Component {
                     placeholder: 'Your Country'
                 },
                 value: ''
-            // },
-            // deliveryMethod: {
-            //     elementType: 'select',
-            //     elementConfig: {
-            //         options: [{
-            //             value: 'fastest',
-            //             displayValue: 'Fastest'
-            //         },{
-            //             value: 'standard',
-            //             displayValue: 'Standard'
-            //         }]
-            //     },
-            //     value: ''
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [{
+                        value: 'fastest',
+                        displayValue: 'Fastest'
+                    },{
+                        value: 'standard',
+                        displayValue: 'Standard'
+                    }]
+                },
+                value: ''
             }
         },
         loading: false
@@ -93,7 +93,14 @@ class ContactData extends Component {
                 console.log(err);
                 this.setState({ loading: false });
             });
-        console.log("----",this.props)
+    }
+
+    onInputChangeHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = { ...this.state.orderForm };
+        const updatedInputElement = { ...updatedOrderForm[inputIdentifier] };
+        updatedInputElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedInputElement;
+        this.setState({ orderForm: updatedOrderForm });
     }
 
     render(){
@@ -113,6 +120,7 @@ class ContactData extends Component {
                             elementType={formElement.config.elementType}
                             elementConfig={formElement.config.elementConfig}
                             value={formElement.config.value}
+                            changed={(event)=> this.onInputChangeHandler(event,formElement.id)}
                         />
                     ))
                 }
