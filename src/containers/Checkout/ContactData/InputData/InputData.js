@@ -79,7 +79,7 @@ export default {
             }]
         },
         validation: {},
-        value: 'Select State',
+        value: 'OR',
         valid: true
     },
     country: {
@@ -90,8 +90,7 @@ export default {
         },
         validation: {},
         value: 'United States',
-        valid: true,
-        touched: false
+        valid: true
     },
     deliveryMethod: {
         elementType: 'select',
@@ -106,6 +105,6 @@ export default {
         },
         validation: {},
         valid: true,
-        value: ''
+        value: 'standard'
     }
 }
