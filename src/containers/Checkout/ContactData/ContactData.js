@@ -8,7 +8,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import InputData from './InputData/InputData';
 import withErrorHandler from '../../../hoc/withErrorHandler';
-import * as orderActions from '../../../store/actions';
+import * as actions from '../../../store/actions';
 
 class ContactData extends Component {
     state= {
@@ -111,7 +111,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurger(orderData))
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
     }
 }
 
