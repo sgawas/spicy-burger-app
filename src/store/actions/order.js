@@ -28,7 +28,7 @@ export const purchaseBurger = ( orderData ) => {
         axios.post('/orders.json', orderData)
             .then(res=> {
                 console.log(res.data);
-                dispath(purchaseBurgerSuccess(res.data, orderData));
+                dispath(purchaseBurgerSuccess(res.data.name, orderData));
             })
             .catch(err=> {
                 dispath(purchaseBurgerFail(err));
