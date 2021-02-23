@@ -7,6 +7,8 @@ import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import InputData from './InputData/InputData';
+import withErrorHandler from '../../../hoc/withErrorHandler';
+import * as orderActions from '../../../store/actions';
 
 class ContactData extends Component {
     state= {
@@ -35,7 +37,6 @@ class ContactData extends Component {
 
     orderHandler = (event) => {
         event.preventDefault();
-        this.setState({ loading : true });
         const formData = {};
         for(let inputElement in this.state.orderForm){
             formData[inputElement] = this.state.orderForm[inputElement].value;
@@ -45,17 +46,7 @@ class ContactData extends Component {
             price: this.props.price,
             orderData: formData
         }
-
-        axios.post('/orders.json', order)
-            .then(response=> {
-                console.log(response);
-                this.setState({ loading: false });
-                this.props.history.push('/');
-            })
-            .catch(err=> {
-                console.log(err);
-                this.setState({ loading: false });
-            });
+        this.props.onOrderBurger(order);
     }
 
     onInputChangeHandler = (event, inputIdentifier) => {
@@ -118,4 +109,8 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+    onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurgerStart(orderData))
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
