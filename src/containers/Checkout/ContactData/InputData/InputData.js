@@ -16,13 +16,14 @@ export default {
     email: {
         elementType: 'input',
         elementConfig: {
-            type: 'text',
-            placeholder: 'yourEmail@domain.com'
+            type: 'email',
+            placeholder: 'Your Email'
         },
         value: '',
         validation: {
             required: true,
-            validationText: 'A valid Email is required.'
+            validationText: 'A valid Email is required.',
+            isEmail: true
         },
         valid: false,
         touched: false
