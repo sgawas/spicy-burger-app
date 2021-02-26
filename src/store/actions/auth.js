@@ -29,10 +29,10 @@ const logout = () => {
     }
 }
 
-const authLogout = (expirationTime) => {
+const authCheckTimeOut = (expirationTime) => {
     return dispatch => {
         setTimeout(()=> {
-            logout();
+            dispatch(logout());
         }, expirationTime * 1000);
     }
 }
@@ -49,12 +49,10 @@ export const auth = ( email, password, isSignUp ) => {
         if(!isSignUp){
             url = process.env.REACT_APP_GOOGLE_AUTH_API_SIGNIN + process.env.REACT_APP_GOOGLE_API_KEY;
         }
-        console.log(url, isSignUp);
         axios.post(url, authData)
             .then(res => {
-                console.log(res);
                 dispatch(authSuccess(res.data.idToken, res.data.localId));
-                dispatch(authLogout(res.data.expiresIn));
+                dispatch(authCheckTimeOut(res.data.expiresIn));
             })
             .catch(err => {
                 console.log(err.response.data.error);
