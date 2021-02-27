@@ -143,11 +143,12 @@ class Auth extends Component {
                 errorMessage = (
                     <p>Something went wrong. Try again later.</p>
                 );
-            } else {
-                errorMessage = (
-                    <p>Something went wrong please try again.</p>
-                );
             } 
+            // else {
+            //     errorMessage = (
+            //         <p>Something went wrong please try again.</p>
+            //     );
+            // } 
         }
         return (
             <div className={classes.Auth}>
