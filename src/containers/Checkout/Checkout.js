@@ -8,7 +8,6 @@ import ContactData from './ContactData/ContactData';
 class Checkout extends Component {
 
     checkoutCancelledHandler = () => {
-        console.log(this.props)
         this.props.history.goBack();
     }
 
